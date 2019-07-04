@@ -1,0 +1,35 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" />
+
+
+<h3>Staff</h3>
+{% if is_staff %}
+    <ul>
+    {% for user in is_staff %}
+        <li>{{user.username}}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No staffers available</p>
+{% endif %}
+<h3>Non Staff</h3>
+{% if non_staff %}
+    <ul>
+    {% for user in non_staff %}
+        <li>{{user.username}}</li>
+    {% endfor %}
+    </ul>
+    {% else %}}
+    <p>No non-staffers available</p>
+{% endif %}
+<h3>All Users</h3>
+{% if user_list %}
+    <ul>
+    {% for user in user_list %}
+        <li>{{user.username}}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No users are available</p>
+{% endif %}

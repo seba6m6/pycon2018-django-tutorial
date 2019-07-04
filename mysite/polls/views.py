@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 from .models import Choice, Question
 
@@ -54,3 +55,14 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+class UserList(generic.ListView):
+    model = User
+    template_name = "polls/user_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_staff'] = [user for user in User.objects.all() if user.is_staff]
+        context['non_staff'] = [user for user in User.objects.all() if not user.is_staff]
+
+        return context
