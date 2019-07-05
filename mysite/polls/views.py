@@ -60,6 +60,7 @@ class UserList(generic.ListView):
     model = User
     template_name = "polls/user_list.html"
 
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_staff'] = [user for user in User.objects.all() if user.is_staff]
